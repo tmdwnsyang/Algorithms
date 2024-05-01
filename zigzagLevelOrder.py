@@ -1,7 +1,6 @@
-
-# My solution
 # Problem: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 
+# My Solution
 class Solution:
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         a = []
