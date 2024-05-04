@@ -1,7 +1,7 @@
 # Problem: 116. Populating Next Right Pointers in Each Node
 # Link: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
 
-# My Solution:
+# Solution 1: Index as levels
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         a = []
@@ -41,3 +41,29 @@ class Solution:
 # Time complexity: O(n + m) -> O(n), where we process n number of nodes
 # Space complexity: O(n), where queue stores maximum of n/2 nodes (at the last
 # level), so O(n)
+
+
+# Solution 3: Using existing pointers
+
+class Solution:
+    def connect(self, r: 'Optional[Node]') -> 'Optional[Node]':
+        if r == None or r.left == None:
+            return r
+        lm = h = r
+        p = h.right
+        while h:
+            h.left.next = h.right       # Connect left and right children
+            if h.next:                  # Keep going as long as h has a next node
+                h = h.next
+                p.next = h.left
+                p = h.right
+            else:
+                lm = h = lm.left        # Go to the next lvl
+                if h.left:              # If child exists, let the right child
+                    p = h.right         # be the previous
+                else:
+                    return r
+
+# Analysis:
+# Time complexity: O(n + m) -> O(n), where we process n number of nodes
+# Space complexity: O(1), since nodes are used in-place.
