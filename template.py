@@ -21,4 +21,23 @@ class Solution:
                 nodes[i].next = nodes[i+1]
         return root
 
-# Analysis: <Runtime complexity analysis & more...>
+
+# Solution 2: Using BFS traversal
+class Solution:
+    def connect(self, r: 'Optional[Node]') -> 'Optional[Node]':
+        if r == None:
+            return
+        q = deque([(r, 0)])
+        while len(q) > 0:
+            n, lvl = q.pop()
+            if len(q) > 0 and q[-1][1] == lvl:
+                n.next = q[-1][0]
+            if n.left: q.appendleft((n.left, lvl + 1))
+            if n.right: q.appendleft((n.right, lvl + 1))
+        return r
+
+
+# Analysis:
+# Time complexity: O(n + m) -> O(n), where we process n number of nodes
+# Space complexity: O(n), where queue stores maximum of n/2 nodes (at the last
+# level), so O(n)
