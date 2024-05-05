@@ -44,7 +44,6 @@ class Solution:
 
 
 # Solution 3: Using existing pointers
-
 class Solution:
     def connect(self, r: 'Optional[Node]') -> 'Optional[Node]':
         if r == None or r.left == None:
@@ -64,6 +63,20 @@ class Solution:
                 else:
                     return r
 
+# Solution 3b: Recursion
+# Credit to @beat_code_now
+class Solution:
+    def connect(self, r: 'Optional[Node]', nxt = None) -> 'Optional[Node]':
+        if not r: return
+        r.next = nxt                    # Set parent node's next ptr, if any
+        self.connect(r.left, r.right)   # Connect parent node's L and R children
+
+        # Connect R of current parent node and L of next parent node, if any
+        self.connect(r.right, nxt.left if nxt else None)
+        return r
+
+
 # Analysis:
 # Time complexity: O(n + m) -> O(n), where we process n number of nodes
 # Space complexity: O(1), since nodes are used in-place.
+
